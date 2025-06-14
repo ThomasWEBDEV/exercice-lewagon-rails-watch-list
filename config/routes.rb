@@ -1,8 +1,8 @@
-# config/routes.rb
 Rails.application.routes.draw do
   root to: "lists#index"
   resources :lists, only: [:index, :show, :new, :create] do
-    resources :bookmarks, only: [:new, :create] # Imbriqué pour 'new' et 'create'
+    resources :bookmarks, only: [:create]
+    resources :reviews, only: [:new, :create] # <-- AJOUTEZ CETTE LIGNE
   end
-  resources :bookmarks, only: [:destroy] # Non imbriqué pour 'destroy'
+  resources :bookmarks, only: [:destroy]
 end

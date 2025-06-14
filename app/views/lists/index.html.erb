@@ -1,10 +1,25 @@
-<%# app/views/lists/index.html.erb %>
+<div class="hero-banner">
+  <div>
+    <h1>Vos Listes de Films Préférées</h1>
+    <p>Organisez et partagez vos coups de cœur cinématographiques !</p>
+    <%= link_to "Créer ma première liste", new_list_path, class: "btn btn-primary btn-lg mt-3" %>
+  </div>
+</div>
+
 <div class="container mt-4">
-  <h1>Mes Listes de Films</h1>
-  <ul>
+  <h2 class="mb-4">Toutes vos Listes</h2>
+  <div class="row">
     <% @lists.each do |list| %>
-      <li><%= link_to list.name, list_path(list) %></li>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="list-card" style="background-image: url('https://picsum.photos/400/300?random=<%= list.id %>'); background-size: cover; background-position: center;">
+          <div style="background-color: rgba(255, 255, 255, 0.8); padding: 15px; border-radius: 8px;">
+            <h3><%= link_to list.name, list_path(list), style: "color: #333; text-decoration: none;" %></h3>
+            <p><%= pluralize(list.movies.count, 'film') %> en bookmark</p>
+            <%= link_to "Voir la liste", list_path(list), class: "btn btn-outline-info btn-sm" %>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
   <%= link_to "Créer une nouvelle liste", new_list_path, class: "btn btn-primary mt-3" %>
 </div>

@@ -1,0 +1,12 @@
+<%# app/views/reviews/new.html.erb %>
+<div class="container mt-4">
+  <h1>Laisser un avis pour : <%= @list.name %></h1>
+
+  <%= simple_form_for [@list, @review] do |f| %>
+    <%= f.input :comment, placeholder: "Votre avis ici..." %>
+    <%= f.input :rating, collection: 0..5, selected: 5, prompt: "Donnez une note (0-5)" %>
+    <%= f.submit "Soumettre l'avis", class: "btn btn-primary" %>
+  <% end %>
+
+  <%= link_to "Retour à la liste", list_path(@list), class: "btn btn-secondary mt-3" %>
+</div>

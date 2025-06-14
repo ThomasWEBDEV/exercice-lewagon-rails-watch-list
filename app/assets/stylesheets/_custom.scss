@@ -1,0 +1,72 @@
+// app/assets/stylesheets/_custom.scss
+
+// Styles généraux (body, liens, etc.)
+body {
+  background-color: #f8f9fa; /* Couleur de fond légère */
+  font-family: 'Open Sans', sans-serif; /* Exemple de police, assurez-vous qu'elle est chargée */
+}
+
+// Styles de la navbar (peut être plus détaillé)
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,.04); /* Ombre subtile */
+}
+
+// Page d'accueil (root_path) - Hero Banner
+// app/assets/stylesheets/_custom.scss
+
+.hero-banner {
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1600/400?image=1055'); /* Image de Lorem Picsum, gris plus clair */
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  }
+  p {
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  }
+}
+
+// Styles des cartes de listes sur l'index (si vous voulez un look carte)
+.list-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.2s;
+  &:hover {
+    transform: translateY(-5px);
+  }
+  h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+}
+
+// Styles spécifiques pour les films dans une liste
+.list-group-item {
+  background-color: #f0f4f7;
+  border: 1px solid #e0e6ea;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+// Styles pour les avis
+.review-section {
+  margin-top: 40px;
+  h3 {
+    margin-bottom: 20px;
+    color: #555;
+  }
+}
