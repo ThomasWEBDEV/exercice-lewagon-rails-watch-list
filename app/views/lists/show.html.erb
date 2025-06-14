@@ -1,0 +1,25 @@
+<%# app/views/lists/show.html.erb %>
+<div class="container mt-4">
+  <h1><%= @list.name %></h1>
+  <p>ID de la liste : <%= @list.id %></p>
+
+  <h2>Films dans cette liste :</h2>
+  <% if @bookmarks.any? %>
+    <ul class="list-group">
+      <% @bookmarks.each do |bookmark| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= bookmark.movie.title %> (<%= bookmark.movie.rating %> / 10) - <em>"<%= bookmark.comment %>"</em>
+          <%= link_to "Supprimer",
+                      bookmark_path(bookmark),
+                      data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce film de la liste ?" },
+                      class: "btn btn-danger btn-sm" %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Aucun film dans cette liste pour le moment.</p>
+  <% end %>
+
+  <%= link_to "Ajouter un film à cette liste", new_list_bookmark_path(@list), class: "btn btn-info mt-3" %>
+  <%= link_to "Retour aux listes", lists_path, class: "btn btn-secondary mt-3" %>
+</div>

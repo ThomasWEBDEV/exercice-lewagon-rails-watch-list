@@ -1,0 +1,12 @@
+<%# app/views/bookmarks/new.html.erb %>
+<div class="container mt-4">
+  <h1>Ajouter un film à la liste : <%= @list.name %></h1>
+
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.input :comment, placeholder: "Ajoutez un commentaire sur ce film..." %>
+    <%= f.association :movie, collection: Movie.all.order(:title), prompt: "Sélectionnez un film" %>
+    <%= f.submit "Ajouter le film", class: "btn btn-primary" %>
+  <% end %>
+
+  <%= link_to "Retour à la liste", list_path(@list), class: "btn btn-secondary mt-3" %>
+</div>
