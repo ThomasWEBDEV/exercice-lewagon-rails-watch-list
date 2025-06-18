@@ -48,12 +48,12 @@ Rails.application.configure do
 
   # Replace the default in-process memory cache store with a durable alternative.
   config.cache_store = :solid_cache_store
+  # Configure SolidCache to use the primary database
+  config.solid_cache.connects_to = { database: { writing: :primary, reading: :primary } }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
-  # !!! CORRECTION ICI !!!
-  # SolidQueue doit utiliser la base de données principale, car Heroku n'en fournit pas de 'queue' séparée.
-  # Nous configurons directement SolidQueue pour pointer vers ':primary'.
+  # Configure SolidQueue to use the primary database
   config.solid_queue.connects_to = { database: { writing: :primary, reading: :primary } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
