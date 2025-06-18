@@ -8,10 +8,8 @@ development:
 test:
   adapter: test
 
+# config/cable.yml
 production:
-  adapter: solid_cable
-  connects_to:
-    database:
-      writing: cable
-  polling_interval: 0.1.seconds
-  message_retention: 1.day
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  channel_prefix: exercice_lewagon_rails_watch_list_production
