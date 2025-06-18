@@ -1,3 +1,4 @@
+# config/application.rb
 require_relative "boot"
 
 require "rails"
@@ -22,6 +23,10 @@ module ExerciceLewagonRailsWatchList
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
+
+    # Configure Active Job to use Solid Queue and connect to the primary database
+    config.active_job.queue_adapter = :solid_queue
+    config.active_job.connected_to = { database: { writing: :primary, reading: :primary } }
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
