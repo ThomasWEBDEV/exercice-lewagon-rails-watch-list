@@ -82,20 +82,7 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: exercice_lewagon_rails_watch_list_production
-    username: exercice_lewagon_rails_watch_list
-    password: <%= ENV["EXERCICE_LEWAGON_RAILS_WATCH_LIST_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: exercice_lewagon_rails_watch_list_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: exercice_lewagon_rails_watch_list_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: exercice_lewagon_rails_watch_list_production_cable
-    migrations_paths: db/cable_migrate
+  url: <%= ENV['DATABASE_URL'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
