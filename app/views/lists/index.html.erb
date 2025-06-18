@@ -11,7 +11,13 @@
   <div class="row">
     <% @lists.each do |list| %>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="list-card" style="background-image: url('https://picsum.photos/400/300?random=<%= list.id %>'); background-size: cover; background-position: center;">
+        <div class="list-card"
+          <% if list.photo.attached? %>
+            style="background-image: url('<%= cl_image_path list.photo.key, crop: :fill, gravity: :auto, width: 400, height: 300 %>'); background-size: cover; background-position: center;"
+          <% else %>
+            style="background-image: url('https://via.placeholder.com/400x300.png?text=No+Image'); background-size: cover; background-position: center;"
+          <% end %>
+        >
           <div style="background-color: rgba(255, 255, 255, 0.8); padding: 15px; border-radius: 8px;">
             <h3><%= link_to list.name, list_path(list), style: "color: #333; text-decoration: none;" %></h3>
             <p><%= pluralize(list.movies.count, 'film') %> en bookmark</p>

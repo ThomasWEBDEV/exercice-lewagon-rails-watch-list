@@ -1,49 +1,62 @@
 <%# app/views/lists/show.html.erb %>
-<h1><%= @list.name %></h1>
-<p>ID de la liste : <%= @list.id %></p>
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><%= @list.name %></h1>
+    <%= link_to "Retour aux listes", lists_path, class: "btn btn-secondary" %>
+  </div>
 
-<h2>Films dans cette liste :</h2>
-<% if @bookmarks.any? %>
-  <ul class="list-group">
-    <% @bookmarks.each do |bookmark| %>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= bookmark.movie.title %> (<%= bookmark.movie.rating %> / 10) - <em>"<%= bookmark.comment %>"</em>
-        <%= link_to "Supprimer",
-                    bookmark_path(bookmark),
-                    data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce film de la liste ?" },
-                    class: "btn btn-danger btn-sm" %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Aucun film dans cette liste pour le moment.</p>
-<% end %>
+  <%# Section pour afficher l'image de la liste %>
+  <% if @list.photo.attached? %>
+    <%= cl_image_tag @list.photo.key, height: 400, width: 800, crop: :fill, class: "img-fluid rounded mb-4" %>
+  <% else %>
+    <img src="https://via.placeholder.com/800x400.png?text=No+Image+Available" class="img-fluid rounded mb-4" alt="No image available">
+  <% end %>
 
-<hr class="mt-4 mb-4">
+  <p>ID de la liste : <%= @list.id %></p>
 
-<h3>Ajouter un nouveau film à <%= @list.name %> :</h3>
-<%= simple_form_for [@list, @bookmark] do |f| %>
-  <%= f.input :comment, placeholder: "Ajoutez un commentaire sur ce film..." %>
-  <%= f.association :movie, collection: Movie.all.order(:title), prompt: "Sélectionnez un film" %>
-  <%= f.submit "Ajouter le film", class: "btn btn-primary" %>
-<% end %>
+  <h2>Films dans cette liste :</h2>
+  <% if @bookmarks.any? %>
+    <ul class="list-group">
+      <% @bookmarks.each do |bookmark| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= bookmark.movie.title %> (<%= bookmark.movie.rating %> / 10) - <em>"<%= bookmark.comment %>"</em>
+          <%= link_to "Supprimer",
+                      bookmark_path(bookmark),
+                      data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce film de la liste ?" },
+                      class: "btn btn-danger btn-sm" %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Aucun film dans cette liste pour le moment.</p>
+  <% end %>
 
-<hr class="mt-4 mb-4"> <%# <-- Nouvelle ligne de séparation %>
+  <hr class="mt-4 mb-4">
 
-<h3>Avis pour <%= @list.name %> :</h3>
-<% if @list.reviews.any? %>
-  <ul class="list-group mb-3">
-    <% @list.reviews.each do |review| %>
-      <li class="list-group-item">
-        <strong>Note : <%= review.rating %>/5</strong><br>
-        "<%= review.comment %>"
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Aucun avis pour le moment. Soyez le premier !</p>
-<% end %>
+  <h3>Ajouter un nouveau film à <%= @list.name %> :</h3>
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.input :comment, placeholder: "Ajoutez un commentaire sur ce film..." %>
+    <%= f.association :movie, collection: Movie.all.order(:title), prompt: "Sélectionnez un film" %>
+    <%= f.submit "Ajouter le film", class: "btn btn-primary" %>
+  <% end %>
 
-<%= link_to "Laisser un avis", new_list_review_path(@list), class: "btn btn-warning mt-3 mb-3" %>
+  <hr class="mt-4 mb-4">
 
-<%= link_to "Retour aux listes", lists_path, class: "btn btn-secondary mt-3" %>
+  <h3>Avis pour <%= @list.name %> :</h3>
+  <% if @list.reviews.any? %>
+    <ul class="list-group mb-3">
+      <% @list.reviews.each do |review| %>
+        <li class="list-group-item">
+          <strong>Note : <%= review.rating %>/5</strong><br>
+          "<%= review.comment %>"
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Aucun avis pour le moment. Soyez le premier !</p>
+  <% end %>
+
+  <%= link_to "Laisser un avis", new_list_review_path(@list), class: "btn btn-warning mt-3 mb-3" %>
+
+  <%= link_to "Retour aux listes", lists_path, class: "btn btn-secondary mt-3" %>
+</div>

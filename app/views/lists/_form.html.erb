@@ -1,0 +1,6 @@
+<%# app/views/lists/_form.html.erb %>
+<%= simple_form_for @list do |f| %>
+  <%= f.input :name %>
+  <%= f.input :photo, as: :file %> <%# <-- Assure-toi que cette ligne est là %>
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

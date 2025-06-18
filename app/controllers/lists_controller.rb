@@ -1,3 +1,4 @@
+# app/controllers/lists_controller.rb
 class ListsController < ApplicationController
   def index
     @lists = List.all
@@ -5,8 +6,8 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
-    @bookmarks = @list.bookmarks # Déjà là
-    @bookmark = Bookmark.new # <-- AJOUTEZ CETTE LIGNE
+    @bookmarks = @list.bookmarks
+    @bookmark = Bookmark.new # Cette ligne est bien là !
   end
 
   def new
@@ -25,6 +26,7 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:name)
+    # Autorisez le paramètre :photo ici !
+    params.require(:list).permit(:name, :photo)
   end
 end

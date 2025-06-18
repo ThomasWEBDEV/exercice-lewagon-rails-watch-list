@@ -1,9 +1,6 @@
 <%# app/views/lists/new.html.erb %>
 <div class="container mt-4">
   <h1>Créer une nouvelle liste</h1>
-  <%= simple_form_for @list do |f| %>
-    <%= f.input :name %>
-    <%= f.submit "Créer la liste", class: "btn btn-primary" %>
-  <% end %>
+  <%= render "form", list: @list %> <%# <-- C'EST LA LIGNE CRUCIALE ICI %>
   <%= link_to "Retour aux listes", lists_path, class: "btn btn-secondary mt-3" %>
 </div>
