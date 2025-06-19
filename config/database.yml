@@ -82,17 +82,7 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  # Ceci est ta configuration de base de données principale
-  primary:
-    url: <%= ENV['DATABASE_URL'] %>
-    adapter: postgresql
-    encoding: unicode
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-  # AJOUTÉ POUR LE CACHE DE SOLIDCACHE
-  cache:
-    # Fait pointer le cache vers la même base de données que la primary
-    url: <%= ENV["DATABASE_URL"] %>
-    adapter: postgresql
-    encoding: unicode
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV['DATABASE_URL'] %>
+  adapter: postgresql # Assure-toi que c'est bien postgresql si tu utilises Heroku Postgres
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
