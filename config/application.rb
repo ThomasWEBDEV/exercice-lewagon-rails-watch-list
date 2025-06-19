@@ -29,7 +29,6 @@ module ExerciceLewagonRailsWatchList
     # config.active_job.queue_adapter = :async # <-- COMMENTER ou SUPPRIMER cette ligne
 
     # Ajouter cette ligne pour indiquer à ActiveRecord quelle base de données utiliser pour les queues
-    config.active_record.queue_database = :queue # <-- AJOUTER cette ligne
 
     # Cette ligne est souvent superflue ou en conflit avec SolidQueue qui gère sa propre connexion
     # config.active_job.connected_to = { database: { writing: :primary, reading: :primary } } # <-- COMMENTER ou SUPPRIMER cette ligne
