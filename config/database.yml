@@ -82,18 +82,15 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  # La connexion 'par défaut', aussi appelée 'primary' pour SolidQueue
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['DATABASE_URL'] %> # <-- Doit être ici, avec seulement 2 espaces d'indentation
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-  # Ajoute le bloc 'connects_to' pour SolidQueue
   connects_to:
     databases:
       primary:
         url: <%= ENV['DATABASE_URL'] %>
         adapter: postgresql
-      queue: # C'est la base de données que SolidQueue essaie de trouver
+      queue:
         url: <%= ENV['DATABASE_URL'] %>
         adapter: postgresql
