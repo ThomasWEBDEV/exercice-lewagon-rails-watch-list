@@ -24,9 +24,16 @@ module ExerciceLewagonRailsWatchList
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
-    # Configure Active Job to use Solid Queue and connect to the primary database
-    config.active_job.queue_adapter = :solid_queue
-    config.active_job.connected_to = { database: { writing: :primary, reading: :primary } }
+    # Configure Active Job to use Solid Queue and connect to its dedicated database
+    config.active_job.queue_adapter = :solid_queue # <-- DÉCOMMENTER cette ligne
+    # config.active_job.queue_adapter = :async # <-- COMMENTER ou SUPPRIMER cette ligne
+
+    # Ajouter cette ligne pour indiquer à ActiveRecord quelle base de données utiliser pour les queues
+    config.active_record.queue_database = :queue # <-- AJOUTER cette ligne
+
+    # Cette ligne est souvent superflue ou en conflit avec SolidQueue qui gère sa propre connexion
+    # config.active_job.connected_to = { database: { writing: :primary, reading: :primary } } # <-- COMMENTER ou SUPPRIMER cette ligne
+
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
