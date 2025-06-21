@@ -1,0 +1,9 @@
+<%# app/views/lists/destroy.turbo_stream.erb %>
+
+<%# 1. Retire la carte de la page %>
+<%= turbo_stream.remove dom_id(@list) %>
+
+<%# 2. Ajoute un message flash (si tu veux qu'il s'affiche via Turbo Stream) %>
+<%# Pour que cela fonctionne, tu dois avoir un élément sur ta page avec id="flash" %>
+<%# et un partial pour les messages flash. Voir l'étape 3 si tu ne l'as pas. %>
+<%= turbo_stream.prepend "flash", partial: "shared/flash_message", locals: { notice: "List was successfully deleted." } %>

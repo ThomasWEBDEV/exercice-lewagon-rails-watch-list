@@ -1,62 +1,185 @@
 <%# app/views/lists/show.html.erb %>
-<div class="container my-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1><%= @list.name %></h1>
-    <%= link_to "Retour aux listes", lists_path, class: "btn btn-secondary" %>
+<div class="container my-4 list-main-content">
+  <%# List Title and Back button Section %>
+  <div class="d-flex justify-content-between align-items-center mb-4 list-header-section">
+    <h1 class="flex-grow-1 me-3"><%= @list.name %></h1>
+    <div class="button-wrapper flex-shrink-0">
+      <%= link_to "Back to Lists", lists_path, class: "btn btn-secondary" %>
+    </div>
   </div>
 
-  <%# Section pour afficher l'image de la liste %>
-  <% if @list.photo.attached? %>
-    <%= cl_image_tag @list.photo.key, height: 400, width: 800, crop: :fill, class: "img-fluid rounded mb-4" %>
-  <% else %>
-    <img src="https://via.placeholder.com/800x400.png?text=No+Image+Available" class="img-fluid rounded mb-4" alt="No image available">
+  <%# Section to display the list image %>
+  <div class="list-image-section mb-4">
+    <% if @list.photo.attached? %>
+      <%= cl_image_tag @list.photo.key, height: 400, width: 800, crop: :fill, class: "img-fluid rounded" %>
+    <% else %>
+      <img src="https://via.placeholder.com/800x400.png?text=No+Image+Available" class="img-fluid rounded" alt="No image available">
+    <% end %>
+  </div>
+
+  <%# Mangas in this List Section %>
+  <div class="list-section movies-section">
+    <h2>Mangas in this list ❀</h2>
+    <% if @bookmarks.any? %>
+      <div class="row">
+        <% @bookmarks.each do |bookmark| %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <%# Image du manga %>
+              <% image_url = bookmark.custom_image_url.present? ? bookmark.custom_image_url : bookmark.manga.poster_url %>
+              <% if image_url.present? %>
+                <%= image_tag image_url, class: "card-img-top", style: "height: 300px; object-fit: cover;" %>
+              <% else %>
+                <img src="https://via.placeholder.com/300x300.png?text=No+Image" class="card-img-top" style="height: 300px; object-fit: cover;" alt="No image available">
+              <% end %>
+
+              <div class="card-body d-flex flex-column">
+  <h5 class="card-title mb-2"><%= bookmark.manga.title %></h5>
+
+  <% if bookmark.manga.overview.present? %>
+    <p class="card-text mb-3">
+      <%= bookmark.manga.overview %>
+    </p>
   <% end %>
 
-  <p>ID de la liste : <%= @list.id %></p>
-
-  <h2>Films dans cette liste :</h2>
-  <% if @bookmarks.any? %>
-    <ul class="list-group">
-      <% @bookmarks.each do |bookmark| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <%= bookmark.movie.title %> (<%= bookmark.movie.rating %> / 10) - <em>"<%= bookmark.comment %>"</em>
-          <%= link_to "Supprimer",
-                      bookmark_path(bookmark),
-                      data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce film de la liste ?" },
-                      class: "btn btn-danger btn-sm" %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>Aucun film dans cette liste pour le moment.</p>
+  <% if bookmark.comment.present? %>
+    <blockquote class="blockquote-footer mb-3">
+      <small class="text-muted">
+        "<%= bookmark.comment %>"
+      </small>
+    </blockquote>
   <% end %>
+
+  <div class="mt-auto">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <span class="badge bg-primary"><%= bookmark.manga.rating %>/10</span>
+    </div>
+
+    <%= link_to "Delete",
+                bookmark_path(bookmark),
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove this manga from the list?" },
+                class: "btn btn-outline-danger btn-sm w-100" %>
+  </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center">
+        <p class="lead">No Manga in This List</p>
+        <p>Add Your First Manga Below ₊˚⊹♡</p>
+      </div>
+    <% end %>
+  </div>
 
   <hr class="mt-4 mb-4">
 
-  <h3>Ajouter un nouveau film à <%= @list.name %> :</h3>
-  <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.input :comment, placeholder: "Ajoutez un commentaire sur ce film..." %>
-    <%= f.association :movie, collection: Movie.all.order(:title), prompt: "Sélectionnez un film" %>
-    <%= f.submit "Ajouter le film", class: "btn btn-primary" %>
-  <% end %>
+  <%# NOUVELLE STRUCTURE POUR METTRE LES SECTIONS CÔTE À CÔTE %>
+  <div class="row">
+    <%# Dans ta vue show.html.erb, section formulaire %>
+<div class="col-md-6">
+  <div class="list-section add-manga-section">
+    <h3>Add a new manga to <%= @list.name %> ➳</h3>
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.input :comment, placeholder: "Add a comment about this manga" %>
+
+      <%# Champ caché pour stocker l'URL Cloudinary %>
+      <%= f.input :custom_image_url, as: :hidden %>
+
+      <%# Bouton pour ouvrir le widget Cloudinary %>
+      <div class="form-group mb-3">
+        <label class="form-label">Custom Image (optional)</label>
+        <div class="d-flex align-items-center gap-3">
+          <button type="button" class="btn btn-outline-primary" id="upload-widget-opener">
+            📷 Choose Image
+          </button>
+          <div id="uploaded-image-preview" class="d-none">
+            <img id="preview-img" src="" alt="Preview" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            <button type="button" class="btn btn-sm btn-outline-danger ms-2" id="remove-image">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <%= f.association :manga, collection: @mangas, prompt: "Select a manga" %>
+
+      <div class="button-wrapper mt-3">
+        <%= f.submit "Add Manga", class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const uploadButton = document.getElementById('upload-widget-opener');
+  const imagePreview = document.getElementById('uploaded-image-preview');
+  const previewImg = document.getElementById('preview-img');
+  const removeButton = document.getElementById('remove-image');
+  const hiddenInput = document.getElementById('bookmark_custom_image_url');
+
+  // Configuration du widget Cloudinary
+  const myWidget = cloudinary.createUploadWidget({
+    cloudName: '<%= Cloudinary.config.cloud_name %>',
+    uploadPreset: 'ml_unsigned', // Remplace par ton upload preset
+    multiple: false,
+    maxFiles: 1,
+    clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+    maxFileSize: 5000000, // 5MB
+    folder: 'manga_bookmarks'
+  }, (error, result) => {
+    if (!error && result && result.event === "success") {
+      // Mettre à jour le champ caché avec l'URL Cloudinary
+      hiddenInput.value = result.info.secure_url;
+
+      // Afficher la prévisualisation
+      previewImg.src = result.info.secure_url;
+      imagePreview.classList.remove('d-none');
+      uploadButton.textContent = '📷 Change Image';
+    }
+  });
+
+  // Ouvrir le widget au clic
+  uploadButton.addEventListener('click', function() {
+    myWidget.open();
+  });
+
+  // Supprimer l'image
+  removeButton.addEventListener('click', function() {
+    hiddenInput.value = '';
+    imagePreview.classList.add('d-none');
+    uploadButton.textContent = '📷 Choose Image';
+  });
+});
+</script>
+
+    <div class="col-md-6">
+      <div class="list-section reviews-section">
+        <h3>Reviews for <%= @list.name %> ➺</h3>
+        <% if @list.reviews.any? %>
+          <ul class="list-group mb-3">
+            <% @list.reviews.each do |review| %>
+              <li class="list-group-item">
+                <p><strong>Rating: <%= review.rating %>/5</strong><br></p>
+                <p>"<%= review.comment %>"</p>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>No reviews yet. Be the first ✿</p>
+        <% end %>
+        <div class="button-wrapper mt-3">
+          <%= link_to "Leave a Review", new_list_review_path(@list), class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <hr class="mt-4 mb-4">
 
-  <h3>Avis pour <%= @list.name %> :</h3>
-  <% if @list.reviews.any? %>
-    <ul class="list-group mb-3">
-      <% @list.reviews.each do |review| %>
-        <li class="list-group-item">
-          <strong>Note : <%= review.rating %>/5</strong><br>
-          "<%= review.comment %>"
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>Aucun avis pour le moment. Soyez le premier !</p>
-  <% end %>
-
-  <%= link_to "Laisser un avis", new_list_review_path(@list), class: "btn btn-warning mt-3 mb-3" %>
-
-  <%= link_to "Retour aux listes", lists_path, class: "btn btn-secondary mt-3" %>
+  <div class="text-center mb-3">
+    <div class="button-wrapper">
+      <%= link_to "Back to Lists", lists_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
 </div>

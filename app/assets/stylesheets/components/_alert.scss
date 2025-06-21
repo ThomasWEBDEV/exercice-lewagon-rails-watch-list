@@ -1,6 +1,6 @@
 .alert {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  z-index: 1000;
+  border-radius: $border-radius;
+  font-family: $font-anime;
+  font-size: $font-size-base * 0.9;
+  padding: $spacer * 0.75 $spacer; // Un peu plus compact
 }

@@ -1,0 +1,33 @@
+// app/assets/stylesheets/config/_variables.scss
+
+// Variables de couleurs PERSONNALISÉES (Tes teintes de violet)
+$purple-main: #6a0dad;      // Un violet profond, pour ta couleur principale
+$purple-accent: #8A2BE2;    // Un violet légèrement plus clair, pour les accents, liens, ou boutons secondaires
+$purple-light-bg: #f3e5f5;  // Un violet très très clair, pour les fonds subtils ou les surligneurs
+$yellow-accent: #FFD700;
+$red-accent: #FF6347; // Un rouge vif pour les actions de suppression ou d'alerte
+$blue-gray: #33576e;// Un bleu-gris pour les éléments de formulaire, les boutons secondaires, etc.
+
+// Couleurs de gris existantes (à garder, elles sont utiles)
+$medium-gray: #6c757d;
+$light-gray: #f8f9fa;       // Idéal pour les fonds clairs
+$dark-gray: #495057;        // Pour le texte sombre
+$light-cream: #feffde;      // tout les polices du site auront cette couleur
+
+// Variables de border-radius (garder telles quelles)
+$border-radius: 4px;
+$border-radius-sm: 2px;
+$border-radius-lg: 8px;
+
+// Variables de border-radius personnalisées (pour les composants spécifiques)
+$custom-border-radius: 4px !default; // !default pour éviter les erreurs si déjà défini
+$custom-border-radius-sm: 2px !default; // <-- CELLE-CI DOIT ÊTRE LÀ !
+$custom-border-radius-lg: 8px !default;
+
+// Autres variables communes (garder telles quelles)
+$font-size-base: 1rem;
+$line-height-base: 1.5;
+
+// Variables de police (si tu as défini $font-anime ailleurs, assure-toi qu'il est accessible, sinon définis-le ici)
+// Exemple:
+// $font-anime: "Your Anime Font Name", sans-serif;

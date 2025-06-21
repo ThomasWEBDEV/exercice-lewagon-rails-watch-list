@@ -1,0 +1,121 @@
+// app/assets/stylesheets/components/_buttons.scss
+
+// Les variables ($font-anime, $spacer, $dark-gray, $light-cream, $black,
+// $custom-border-radius-lg, $purple-accent, $medium-gray, $yellow-accent, $white, $purple-main, $font-size-base, $red-accent)
+// sont supposées être définies et importées globalement via application.scss.
+// Assurez-vous que $red-accent est défini quelque part, par exemple: $red-accent: #E03B3B;
+
+.btn {
+  font-family: $font-anime;
+  font-weight: bold;
+  padding: $spacer * 0.9 $spacer * 2;
+  border-radius: $custom-border-radius-lg;
+  text-transform: none;
+  transition: all 0.3s ease-in-out;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 15px rgba($black, 0.3);
+  text-decoration: none;
+  outline: none;
+  display: inline-flex; // Permet de centrer le contenu et d'assurer la bonne taille
+  align-items: center;
+  justify-content: center;
+  min-width: 150px; // Assure une largeur minimale pour une meilleure cohérence visuelle
+  text-shadow: 1px 1px 3px rgba($black, 0.6);
+  cursor: pointer;
+
+  // IMPORTANT: Redéfinit explicitement les propriétés de bordure de Bootstrap pour TOUS les boutons
+  // Ceci est remis ici, c'était une erreur de ma part de le bouger.
+  border-width: 0;
+  border-style: none;
+  border-color: transparent;
+
+  // Effet de soulèvement et d'ombre au survol pour la base de tous les boutons
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba($black, 0.4);
+    text-decoration: none;
+  }
+
+  // Effet au clic (active) pour la base de tous les boutons
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba($black, 0.2);
+  }
+
+  // Styles spécifiques pour les boutons de soumission de formulaire
+  &[type="submit"] {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+
+  // >>> Définitions des variantes de boutons (chacune aura sa couleur spécifique) <<<
+
+  &.btn-primary {
+    background-color: $purple-accent;
+    border-color: $purple-accent;
+    color: $white;
+    &:hover { background-color: darken($purple-accent, 10%); border-color: darken($purple-accent, 10%); }
+    &:active { background-color: darken($purple-accent, 5%); border-color: darken($purple-accent, 5%); }
+  }
+
+  &.btn-secondary {
+    background-color: #33576e;
+    border-color: $medium-gray;
+    color: $light-cream;
+    &:hover { background-color: $blue-gray; border-color: $blue-gray; }
+    &:active { background-color: $blue-gray; border-color: $blue-gray; }
+  }
+
+  &.btn-warning {
+    background-color: $yellow-accent;
+    border-color: $yellow-accent;
+    color: $dark-gray;
+    &:hover { background-color: darken($yellow-accent, 10%); border-color: darken($yellow-accent, 10%); }
+    &:active { background-color: darken($yellow-accent, 5%); border-color: darken($yellow-accent, 5%); }
+  }
+
+  &.btn-danger {
+    background-color: $red-accent; // Maintenant que $red-accent est défini, cela fonctionnera
+    border-color: $red-accent;
+    color: $white;
+    &:hover { background-color: darken($red-accent, 10%); border-color: darken($red-accent, 10%); }
+    &:active { background-color: darken($red-accent, 5%); border-color: darken($red-accent, 5%); }
+  }
+
+  &.btn-outline-primary {
+    background-color: transparent;
+    color: $purple-accent;
+    border: 2px solid $purple-accent;
+    box-shadow: none;
+    &:hover { background-color: $purple-accent; color: $white; box-shadow: 0 4px 10px rgba($purple-accent, 0.3); transform: translateY(-3px); }
+    &:active { background-color: darken($purple-accent, 5%); color: $white; }
+  }
+
+  &.btn-outline-info { // Specific style, kept as is per previous request to preserve it
+    display: inline-block;
+    width: auto;
+    padding: $spacer * 0.9 $spacer * 2;
+    font-size: $font-size-base * 1.1;
+    text-align: center;
+    font-weight: bold;
+    background-color: transparent;
+    color: $purple-accent;
+    border: 2px solid $purple-accent;
+    box-shadow: 0 2px 8px rgba($black, 0.2);
+    transition: all 0.3s ease-in-out;
+    text-shadow: none;
+
+    &:hover { background-color: rgba($purple-main, 0.2); color: $white; border-color: $purple-main; transform: translateY(-4px); box-shadow: 0 8px 18px rgba($purple-main, 0.4); }
+    &:active { transform: translateY(0); box-shadow: 0 2px 8px rgba($black, 0.2); background-color: rgba($purple-main, 0.4); border-color: rgba($purple-main, 0.4); }
+  }
+
+  &.btn-flat {
+    background-color: transparent;
+    border: none;
+    color: $dark-gray;
+    padding: $spacer * 0.75 $spacer * 1.5;
+    box-shadow: none;
+    &:hover { color: $purple-accent; background-color: rgba($purple-accent, 0.08); transform: none; }
+  }
+}

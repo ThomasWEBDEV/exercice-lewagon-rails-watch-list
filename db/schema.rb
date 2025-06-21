@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_18_231811) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_21_144921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -44,18 +44,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_231811) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.text "comment"
-    t.bigint "movie_id", null: false
+    t.bigint "manga_id", null: false
     t.bigint "list_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "custom_image_url"
     t.index ["list_id"], name: "index_bookmarks_on_list_id"
-    t.index ["movie_id"], name: "index_bookmarks_on_movie_id"
+    t.index ["manga_id"], name: "index_bookmarks_on_manga_id"
   end
 
   create_table "lists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "mangas", force: :cascade do |t|
+    t.string "title"
+    t.string "author"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "overview"
+    t.string "poster_url"
+    t.float "rating"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -153,6 +165,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_231811) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookmarks", "lists"
-  add_foreign_key "bookmarks", "movies"
+  add_foreign_key "bookmarks", "mangas"
   add_foreign_key "reviews", "lists"
 end

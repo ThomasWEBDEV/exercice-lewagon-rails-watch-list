@@ -1,0 +1,91 @@
+// app/assets/stylesheets/components/_forms.scss
+
+// Styles généraux pour tous les champs de formulaire (input, textarea, etc.)
+.form-control {
+  border-radius: $border-radius;
+  border: 1px solid rgba($medium-gray, 0.3);
+  padding: $spacer * 0.75 $spacer;
+  font-family: $font-anime;
+  font-size: $font-size-base;
+  // --- CORRECTION CLÉ ICI : La couleur du texte doit être CLAIRE ---
+  color: $light-cream; // CHANGÉ : Le texte saisi doit être $light-cream pour être visible
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgba($dark-gray, 0.7); // CHANGÉ : Un fond gris sombre semi-transparent
+  width: 100%;
+  box-shadow: inset 0 1px 3px rgba($black, 0.1);
+
+  &:focus {
+    border-color: $purple-accent;
+    box-shadow: 0 0 0 0.25rem rgba($purple-accent, 0.25), inset 0 1px 3px rgba($black, 0.1);
+    outline: none;
+    background-color: rgba($dark-gray, 0.85); // Légèrement plus opaque au focus
+    color: $light-cream; // Le texte reste clair au focus
+  }
+  &::placeholder {
+    color: lighten($light-gray, 10%); // CHANGÉ : Le placeholder doit être plus clair
+    opacity: 0.8;
+  }
+
+  // Cette règle spécifique est redondante si .form-control est déjà réglé
+  // mais nous la gardons pour être sûr, en ajustant sa couleur
+  &[type="text"],
+  &[type="email"],
+  &[type="password"],
+  &[type="number"],
+  &[type="url"],
+  &[type="tel"],
+  &[type="search"],
+  textarea {
+    color: $light-cream; // CHANGÉ : Force la couleur du texte saisi à être $light-cream
+  }
+}
+
+// Styles spécifiques pour les labels de formulaire
+.form-label {
+  font-family: $font-anime;
+  font-weight: 700;
+  color: $light-cream; // Les labels restent clairs pour être lisibles sur le fond sombre de l'image
+  margin-bottom: $spacer * 0.25;
+  font-size: $font-size-base * 0.9;
+}
+
+// Styles pour les checkboxes/radios
+.form-check-input:checked {
+  background-color: $primary-accent;
+  border-color: $primary-accent;
+}
+
+// NOUVELLE RÈGLE : Cible spécifiquement la classe Bootstrap .form-select
+// Ceci va surcharger les styles par défaut de Bootstrap pour les éléments <select>
+.form-select {
+  // --- CORRECTION CLÉ ICI : Fond et couleur du texte pour le select ---
+  background-color: rgba($dark-gray, 0.7); // CHANGÉ : Fond du menu déroulant en gris sombre semi-transparent
+  color: $light-cream; // CHANGÉ : Couleur du texte du menu déroulant en $light-cream (visible)
+
+  // Surcharge la flèche SVG de Bootstrap pour qu'elle soit visible sur le fond gris
+  // La couleur de la flèche est #feffde (light-cream) encodée en SVG
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="none" stroke="%23feffde" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 5l6 6 6-6"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right $spacer * 0.75 center;
+  background-size: 16px 12px;
+  padding-right: $spacer * 2; // Crée de l'espace pour la flèche
+
+  // Assurez-vous que les autres propriétés essentielles sont héritées ou définies
+  border-radius: $border-radius;
+  border: 1px solid rgba($medium-gray, 0.3);
+  padding: $spacer * 0.75 $spacer; // Utilisez votre padding standard
+  font-family: $font-anime;
+  font-size: $font-size-base;
+  font-weight: 400;
+  line-height: 1.5;
+  width: 100%;
+  box-shadow: inset 0 1px 3px rgba($black, 0.1);
+
+  &:focus {
+    background-color: rgba($dark-gray, 0.85); // CHANGÉ : Plus opaque au focus
+    border-color: $purple-accent;
+    box-shadow: 0 0 0 0.25rem rgba($purple-accent, 0.25), inset 0 1px 3px rgba($black, 0.1);
+    outline: none;
+    color: $light-cream; // Le texte reste clair au focus
+  }
+}

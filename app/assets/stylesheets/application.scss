@@ -1,15 +1,36 @@
-// Graphical variables
-@import "config/fonts";
-@import "config/colors";
-@import "config/bootstrap_variables";
+// app/assets/stylesheets/application.scss
 
-// External libraries
-@import "bootstrap";
+// 1. Fichiers de configuration et variables GLOBALES :
+//    Ces fichiers DOIVENT être importés en premier pour définir toutes les variables
+//    et les polices qui seront utilisées par les autres styles et Bootstrap.
+@import "config/fonts";      // Définit les variables de police comme $font-anime
+@import "config/colors";     // Si tu as un fichier _colors.scss séparé, il doit être ici aussi.
+
+// 2. Surcharge des variables Bootstrap :
+//    Ceci DOIT être importé APRÈS vos propres variables mais AVANT l'import de Bootstrap lui-même.
+// **--> AJOUTE CETTE LIGNE MANQUANTE ICI !**
+@import "config/variables";  // Définit vos couleurs personnalisées comme $purple-main, $purple-accent, etc.
+@import "config/bootstrap_variables"; // Contient vos surcharges de Bootstrap (ex: $info: $purple-accent;)
+
+// 3. Bibliothèques externes :
+//    Bootstrap lui-même DOIT être importé APRÈS toutes les variables et leurs surcharges.
+@import "bootstrap";         // Importe Bootstrap avec vos variables surchargées
 @import "font-awesome";
 
-// Your CSS partials
-@import "components/index";
-@import "pages/index";
+// 4. Vos propres partials CSS (composants et pages) :
+//    Ces fichiers peuvent maintenant utiliser toutes les variables définies ci-dessus
+//    ainsi que les classes et mixins de Bootstrap.
+@import "components/index";  // Ce fichier importe probablement _avatar.scss
+@import "components/alert";
+@import "components/avatar"; // Laissez-le ici ou via _index.scss
+@import "components/buttons";
+@import "components/footer";
+@import "components/form_legend_clear";
+@import "components/forms";
+@import "components/navbar";
+@import "components/cards";  // Ton fichier de cartes
 
-// Custom styles
-@import "custom";
+@import "pages/index";
+@import "pages/home";
+@import "custom";            // Ton fichier de styles personnalisés divers
+@import "pages/lists_show";

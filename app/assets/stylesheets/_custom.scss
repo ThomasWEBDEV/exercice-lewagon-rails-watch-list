@@ -1,72 +1,147 @@
 // app/assets/stylesheets/_custom.scss
+@import "config/fonts";
 
-// Styles généraux (body, liens, etc.)
+// >>> Définitions des variables pour ce fichier (temporaire) <<<
+$body-font: "Manga Style", "Rubik", "Helvetica", "sans-serif";
+$headers-font: "Anime Ace BB", "Montserrat", "Arial", "sans-serif";
+$black: #1A1A1A;
+$dark-gray: #333333;
+$light-gray: #F0F0F0;
+$white: #FFFFFF;
+$primary-accent: #007bff;
+$medium-gray: #6c757d;
+$light-cream: #feffde; // Couleur blanche pour le texte de la marque et des liens
+$purple-accent: #8A2BE2; // Ajout d'une définition pour purple-accent si elle manque ailleurs
+$purple-main: #9932CC; // Ajout d'une définition pour purple-main si elle manque ailleurs
+$spacer: 1rem; // Ajout d'une définition pour spacer si elle manque
+$font-size-base: 1rem; // Ajout d'une définition pour font-size-base si elle manque
+$custom-border-radius-lg: 0.5rem; // Ajout d'une définition
+$custom-border-radius-sm: 0.25rem; // Ajout d'une définition
+
+
 body {
-  background-color: #f8f9fa; /* Couleur de fond légère */
-  font-family: 'Open Sans', sans-serif; /* Exemple de police, assurez-vous qu'elle est chargée */
-}
-
-// Styles de la navbar (peut être plus détaillé)
-.navbar {
-  box-shadow: 0 2px 4px rgba(0,0,0,.04); /* Ombre subtile */
-}
-
-// Page d'accueil (root_path) - Hero Banner
-// app/assets/stylesheets/_custom.scss
-
-.hero-banner {
-  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/1600/400?image=1055'); /* Image de Lorem Picsum, gris plus clair */
+  // UTILISATION DIRECTE DE L'URL CLOUDINARY (SANS .ERB)
+  background-image: url('https://res.cloudinary.com/deuesgfhi/image/upload/q_auto,f_auto,dpr_auto,w_1920,c_limit/background-85_pxfzsb.jpg');
   background-size: cover;
   background-position: center;
-  height: 400px;
+  background-attachment: fixed;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+  flex-direction: column;
+  font-family: $body-font;
+  color: $light-gray;
+}
+
+.main-content {
+  flex-grow: 1;
+  background-color: rgba($black, 0.7);
+  box-shadow: 0 0 30px rgba($black, 0.1);
+}
+
+.hero-banner {
   text-align: center;
-  margin-bottom: 30px;
+  padding: 100px 20px;
+  background-color: rgba($black, 0.6);
+  color: $white;
+
   h1 {
-    font-size: 3.5rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-  }
-  p {
-    font-size: 1.5rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-  }
-}
-
-// Styles des cartes de listes sur l'index (si vous voulez un look carte)
-.list-card {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-  transition: transform 0.2s;
-  &:hover {
-    transform: translateY(-5px);
-  }
-  h2 {
-    color: #333;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-  }
-}
-
-// Styles spécifiques pour les films dans une liste
-.list-group-item {
-  background-color: #f0f4f7;
-  border: 1px solid #e0e6ea;
-  margin-bottom: 5px;
-  border-radius: 5px;
-}
-
-// Styles pour les avis
-.review-section {
-  margin-top: 40px;
-  h3 {
+    color: $light-cream;
+    font-size: 4.5em;
+    text-shadow: 2px 2px 8px rgba($black, 0.7);
     margin-bottom: 20px;
-    color: #555;
+    font-family: $headers-font; // Utilisation de la police manga pour le titre
+  }
+
+  p {
+    color: $light-cream;
+    font-size: 1.4em;
+    text-shadow: 1px 1px 4px rgba($black, 0.5);
+    margin-bottom: 40px;
+    font-family: $body-font; // Utilisation de la police manga pour le paragraphe
+  }
+}
+
+.footer {
+  background-color: rgba(0, 0, 0, 0.95);
+  color: $black;
+  margin-top: auto;
+  padding: 20px 0;
+  text-align: center;
+  .footer-links a {
+    color: $black;
+    margin: 0 10px;
+    font-size: 1.5em;
+    &:hover {
+      color: $light-cream;
+    }
+  }
+  font-family: $body-font; // Utilisation de la police manga pour le footer
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $light-cream;
+  font-family: $headers-font; // CHANGÉ pour utiliser $headers-font car $font-anime n'est pas défini ici
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+h1 {
+  font-size: 3.8em;
+  line-height: 1.1;
+  text-shadow: 2px 2px 4px rgba($black, 0.3);
+}
+h2 { font-size: 2.8em; }
+h3 { font-size: 2em; }
+
+p {
+  color: $black;
+  font-family: $body-font; // CHANGÉ pour utiliser $body-font car $font-anime n'est pas défini ici
+}
+
+a {
+  color: $black;
+  text-decoration: none;
+  &:hover {
+    color: lighten($primary-accent, 15%);
+    text-decoration: underline;
+  }
+}
+
+// Styles pour les champs de formulaire globaux (s'applique aussi à :name)
+.form-control {
+  background-color: rgba($dark-gray, 0.7);
+  color: $light-cream; // Texte des inputs normaux clair
+  // Assurez-vous que le placeholder est aussi visible
+  &::placeholder {
+    color: lighten($light-gray, 10%);
+    opacity: 0.8;
+  }
+}
+
+// Styles SPÉCIFIQUES pour l'input de fichier (le bouton "Choisir un fichier" et le texte à côté)
+input[type="file"] {
+  color: $dark-gray; // Met le texte en gris foncé pour qu'il soit visible sur fond clair
+  background-color: $white; // Donne un fond blanc au bouton et au texte
+  border: 1px solid $medium-gray; // Ajoute une bordure
+  border-radius: 0.25rem; // Arrondit les coins
+  padding: 0.375rem 0.75rem; // Ajoute un peu de padding
+  display: flex; // Pour mieux contrôler l'alignement des éléments internes
+  align-items: center; // Centre verticalement
+
+  // Cible le bouton interne "Choisir un fichier" pour le styliser
+  &::file-selector-button {
+    background-color: $light-gray; // Couleur du bouton "Choisir un fichier"
+    color: $dark-gray; // Couleur du texte sur le bouton
+    border: 1px solid $medium-gray;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    margin-inline-end: 0.5rem; /* Espace entre le bouton et le texte "Aucun fichier..." */
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: darken($light-gray, 10%);
+      border-color: darken($medium-gray, 10%);
+    }
   }
 }

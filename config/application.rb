@@ -1,53 +1,34 @@
 # config/application.rb
+
 require_relative "boot"
 
-require "rails"
-# Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
-require "active_storage/engine"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-# require "action_mailbox/engine"
-require "action_text/engine"
-require "action_view/railtie"
-require "action_cable/engine"
-# require "rails/test_unit/railtie"
+# Assurez-vous que Sprockets est bien requis ici
+require "rails/all"
+require "sprockets/railtie" # <--- AJOUTEZ/ASSUREZ-VOUS DE CETTE LIGNE
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ExerciceLewagonRailsWatchList
+module YourAppName # Remplacez par le nom de votre application
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
-    # Configure Active Job to use Solid Queue and connect to its dedicated database
-    config.active_job.queue_adapter = :solid_queue # <-- DÉCOMMENTER cette ligne
-    # config.active_job.queue_adapter = :async # <-- COMMENTER ou SUPPRIMER cette ligne
+    # Activer le pipeline d'assets de Sprockets
+    config.assets.enabled = true
 
-    # Ajouter cette ligne pour indiquer à ActiveRecord quelle base de données utiliser pour les queues
+    # Ajouter les chemins où Sprockets doit chercher les assets
+    config.assets.paths << Rails.root.join("app", "assets", "stylesheets")
+    config.assets.paths << Rails.root.join("app", "assets", "javascripts")
+    config.assets.paths << Rails.root.join("app", "assets", "images")
+    config.assets.paths << Rails.root.join("app", "assets", "fonts") # Si vous avez des fonts
 
-    # Cette ligne est souvent superflue ou en conflit avec SolidQueue qui gère sa propre connexion
-    # config.active_job.connected_to = { database: { writing: :primary, reading: :primary } } # <-- COMMENTER ou SUPPRIMER cette ligne
+    # Précompiler les assets supplémentaires si nécessaire (e.g., des images spécifiques)
+    # config.assets.precompile += %w( application.js application.css ) # Décommenter si vous avez des fichiers spécifiques à précompiler en dehors du manifeste
 
+    # Désactiver Propshaft pour éviter les conflits (Rails 8 tente de l'activer par défaut si la gem est présente)
+    # Même si la gem est retirée, cette ligne peut aider à être explicite
+    config.assets.configure do |env|
+      env.unregister_processor "text/css", Sprockets::PropshaftProcessor if defined?(Sprockets::PropshaftProcessor)
+    end
 
-    # Please, add to the `ignore` list any other `lib` subdirectories that do
-    # not contain `.rb` files, or that should not be reloaded or eager loaded.
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w[assets tasks])
-
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
-
-    # Don't generate system test files.
-    config.generators.system_tests = nil
   end
 end

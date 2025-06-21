@@ -224,11 +224,6 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.4.0)
-    propshaft (1.1.0)
-      actionpack (>= 7.0.0)
-      activesupport (>= 7.0.0)
-      rack
-      railties (>= 7.0.0)
     psych (5.2.6)
       date
       stringio
@@ -336,6 +331,8 @@ GEM
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
+    sass-rails (6.0.0)
+      sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -424,7 +421,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootsnap
-  bootstrap (~> 5.2)
+  bootstrap (~> 5.3, >= 5.3.3)
   brakeman
   cloudinary
   debug
@@ -434,14 +431,13 @@ DEPENDENCIES
   jbuilder
   kamal
   pg (~> 1.1)
-  propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
   rails-controller-testing
   rails_12factor
   rspec-rails
   rubocop-rails-omakase
-  sassc-rails
+  sass-rails
   simple_form
   solid_cable
   solid_cache

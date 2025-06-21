@@ -3,3 +3,8 @@
 @import "avatar";
 @import "form_legend_clear";
 @import "navbar";
+// Ajoutons de nouveaux imports pour les futurs composants de style
+@import "buttons"; // Pour styliser nos boutons
+@import "cards";    // Pour les cartes de listes et de films
+@import "forms";    // Pour les champs de formulaire
+@import "footer";   // Si nous créons un pied de page stylisé

@@ -1,0 +1,18 @@
+<%# app/views/shared/_flash_message.html.erb %>
+<div class="container mt-3">
+  <%# La div flash doit avoir l'ID pour que Turbo Stream la cible %>
+  <div id="flash">
+    <% if notice %>
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <%= notice %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <%= alert %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -13,7 +13,9 @@ class BookmarksController < ApplicationController
     if @bookmark.save
       redirect_to list_path(@list)
     else
-      @bookmarks = @list.bookmarks
+      # MODIFIÉ : Assurez-vous que @mangas est disponible pour le formulaire si render "lists/show" est utilisé
+      @mangas = Manga.all # Ajouté pour que le formulaire de sélection des mangas fonctionne
+      @bookmarks = @list.bookmarks # Gardé pour afficher les bookmarks existants
       render "lists/show", status: :unprocessable_entity
     end
   end
@@ -27,6 +29,7 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:comment, :movie_id)
+    # MODIFIÉ : :movie_id devient :manga_id
+    params.require(:bookmark).permit(:manga_id, :comment, :custom_image_url)
   end
 end

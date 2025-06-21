@@ -1,16 +1,17 @@
-// Import Google fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap');
+// app/assets/stylesheets/config/_fonts.scss
 
-// Define fonts for body and headers
-$body-font: "Work Sans", "Helvetica", "sans-serif";
-$headers-font: "Nunito", "Helvetica", "sans-serif";
+// Import des polices Google Fonts via @import url (alternative au <link> dans HTML)
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Rubik:wght@400;700&display=swap');
 
-// To use a font file (.woff) uncomment following lines
-// @font-face {
-//   font-family: "Font Name";
-//   src: font-url('FontFile.eot');
-//   src: font-url('FontFile.eot?#iefix') format('embedded-opentype'),
-//        font-url('FontFile.woff') format('woff'),
-//        font-url('FontFile.ttf') format('truetype')
-// }
-// $my-font: "Font Name";
+// Définition de la police 'Anime Ace BB' via @font-face
+@font-face {
+  font-family: 'Anime Ace BB';
+  src: asset-url('anime-ace-bb.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Variables SCSS pour tes polices personnalisées
+$font-anime: 'Anime Ace BB', sans-serif;
+$headers-font: "Montserrat", sans-serif; // Utilise Montserrat pour les titres
+$body-font: "Rubik", sans-serif; // Utilise Rubik pour le corps

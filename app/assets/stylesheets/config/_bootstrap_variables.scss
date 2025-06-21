@@ -1,28 +1,94 @@
-// This is where you override default Bootstrap variables
-// 1. Find all Bootstrap variables that you can override at the end of each component's documentation under the `Sass variables` anchor
-// e.g. here are the ones you can override for the navbar https://getbootstrap.com/docs/5.2/components/navbar/#sass-variables
-// 2. These variables are defined with default value (see https://robots.thoughtbot.com/sass-default)
-// 3. You can override them below!
+// app/assets/stylesheets/config/_bootstrap_variables.scss
+
+// DÉFINITIONS DES COULEURS FONDAMENTALES DE BASE (PURE HEX)
+$black: #000000;
+$white: #FFFFFF;
+
+// Définitions des niveaux de gris de Bootstrap avec valeurs pures pour la robustesse
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+// DÉFINIR VOS VARIABLES PERSONNALISÉES DIRECTEMENT ICI
+// Au lieu d'importer, définissez les variables directement pour éviter les problèmes de dépendance
+$light-gray: #f4f4f4;
+$dark-gray: #333333;
+$purple-accent: #8e44ad;
+$primary-accent : #6a0dad; // Utilisé pour les accents principaux
+$danger-color: #dc3545;
+$light-cream: #feffde; // Couleur blanche pour le texte de la marque et des liens
+// Variables de police
+$body-font: "Helvetica Neue", Arial, sans-serif;
+$headers-font: "Montserrat", "Arial", "sans-serif";
 
 // General style
 $font-family-sans-serif: $body-font;
-$headings-font-family:   $headers-font;
-$body-bg:                $light-gray;
-$font-size-base:         1rem;
+$headings-font-family: $headers-font;
+$body-bg: $light-gray;
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.25rem;
 
-// Colors
-$body-color: $gray;
-$primary:    $blue;
-$success:    $green;
-$info:       $yellow;
-$danger:     $red;
-$warning:    $orange;
+// Colors - Application de vos couleurs violettes à Bootstrap
+$body-color: $light-cream; // Couleur de base du texte
+$primary: #6a0dad;
+$success: #28a745;
+$info: $purple-accent;
+$danger: #dc3545; // CORRECTION : c'était #dc3540 (invalide)
+$warning: #ffc107;
 
 // Buttons & inputs' radius
-$border-radius-sm:            .0625rem;
-$border-radius:               .125rem;
-$border-radius-lg:            .25rem;
-$border-radius-xl:            .5rem;
-$border-radius-xxl:           1rem;
+$border-radius-sm: 0.1rem;
+$border-radius: 0.25rem;
+$border-radius-lg: 0.5rem;
+$border-radius-xl: 0.75rem;
+$border-radius-xxl: 1rem;
 
-// Override other variables below!
+// Cards
+$card-border-radius: $border-radius;
+$card-border-color: rgba($black, 0.08);
+$card-box-shadow: 0 0.5rem 1rem rgba($black, 0.05);
+
+// Buttons
+$btn-border-radius: $border-radius;
+$btn-border-radius-sm: $border-radius-sm;
+$btn-border-radius-lg: $border-radius-lg;
+$btn-focus-box-shadow: 0 0 0 0.25rem rgba($primary, 0.25); // CORRECTION : utiliser $primary au lieu de #6a0dad
+
+// Forms
+$input-border-radius: $border-radius;
+$input-border-radius-sm: $border-radius-sm;
+$input-border-radius-lg: $border-radius-lg;
+$input-focus-border-color: lighten($primary, 20%); // CORRECTION : utiliser $primary
+$input-focus-box-shadow: 0 0 0 0.25rem rgba($primary, 0.25); // CORRECTION : utiliser $primary
+
+// Links
+$link-color: $purple-accent;
+$link-decoration: none;
+$link-hover-color: darken($purple-accent, 15%);
+$link-hover-decoration: underline;
+
+// Navbar
+$navbar-light-color: $dark-gray;
+$navbar-light-hover-color: $purple-accent;
+$navbar-light-active-color: $purple-accent;
+$navbar-light-toggler-icon-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$dark-gray}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+$navbar-padding-y: 1.5rem;
+
+// Container
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
+// Espacement général
+$spacer: 1.5rem;

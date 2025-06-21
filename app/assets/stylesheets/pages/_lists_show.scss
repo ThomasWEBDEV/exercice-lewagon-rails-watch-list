@@ -1,0 +1,169 @@
+// app/assets/stylesheets/pages/_lists_show.scss
+
+// Styles pour le CONTENEUR PRINCIPAL de la page lists/show
+.list-main-content {
+  padding: 6rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(26, 26, 26, 0.4);
+  color: #feffde;
+  margin-top: 4.5rem;
+  margin-bottom: 4.5rem;
+
+  // C'est LA SEULE PROPRIÉTÉ BACKGROUND dont nous avons besoin
+  background: linear-gradient(rgba($dark-gray, 0.7), rgba($dark-gray, 0.7)), /* Ajustez l'opacité ici (0.5 pour tester) */
+              url("https://res.cloudinary.com/deuesgfhi/image/upload/q_auto,f_auto,dpr_auto,w_1200,c_limit/tokyocity_qjmnwh.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: local;
+
+  // --- Styles spécifiques à l'intérieur de .list-main-content ---
+
+  // Styles généraux pour les éléments textuels DANS .list-main-content
+  h1, h2, h3 {
+    font-family: $font-anime;
+    color: $light-cream;
+    text-shadow: 1px 1px 3px rgba($black, 0.6);
+    margin-bottom: $spacer * 1.5;
+    padding-bottom: $spacer * 0.5;
+    border-bottom: 2px solid $purple-accent;
+    display: inline-block;
+  }
+
+  p {
+    font-family: $body-font;
+    color: $light-cream;
+    line-height: 1.6;
+  }
+
+  // Styles pour les sections individuelles (films, ajouter film, avis)
+  // J'ai commenté la couleur de fond ici pour que l'image du main-content soit visible derrière.
+  // Si vous voulez une couleur de fond différente pour ces sections internes,
+  // vous pouvez la décommenter et ajuster la transparence.
+  .list-section {
+    // background-color: rgba($dark-gray, 0.8); // Commenté pour laisser l'image transparaître
+    padding: $spacer * 2;
+    border-radius: $custom-border-radius-lg;
+    margin-bottom: $spacer * 3;
+    box-shadow: 0 4px 10px rgba($black, 0.2);
+  }
+
+  // Styles pour l'image de la liste
+  .list-image-section {
+    text-align: center;
+    margin-bottom: $spacer * 3;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 3px solid $purple-accent;
+      box-shadow: 0 6px 15px rgba($black, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 20px rgba($black, 0.6);
+      }
+    }
+  }
+
+  // Styles pour les éléments de la liste de films (Bookmarks) et les avis (Reviews)
+  .list-group-item {
+    background-color: rgba($dark-gray, 0.7);
+    border: 1px solid $medium-gray;
+    color: $light-cream;
+    margin-bottom: $spacer * 0.75;
+    border-radius: $custom-border-radius-sm;
+    padding: $spacer * 1.5;
+    box-shadow: 0 2px 5px rgba($black, 0.15);
+
+    .movie-title {
+      font-weight: bold;
+      color: $purple-accent;
+      font-size: $font-size-base * 1.1;
+    }
+
+    .movie-rating {
+      font-weight: normal;
+      color: $light-gray;
+      font-size: $font-size-base * 0.9;
+    }
+
+    .movie-comment {
+      font-style: italic;
+      color: $light-gray;
+      display: block;
+      margin-top: $spacer * 0.5;
+    }
+
+    strong {
+      color: $purple-accent;
+      font-size: $font-size-base * 1.1;
+    }
+  }
+
+  // Styles pour les lignes de séparation
+  hr {
+    border-top: 3px solid $purple-main;
+    opacity: 0.9;
+    margin-top: $spacer * 4;
+    margin-bottom: $spacer * 4;
+    border-radius: 2px;
+  }
+
+  // Styles pour les formulaires (ajout de film, laisser un avis)
+  form {
+    .form-control {
+      background-color: rgba($dark-gray, 0.7);
+      color: $light-cream;
+      border: 1px solid $medium-gray;
+      border-radius: $custom-border-radius-sm;
+      padding: $spacer * 0.75 $spacer;
+      max-width: 80%; // Raccourcit la largeur des champs de formulaire
+
+      &:focus {
+        border-color: $purple-accent;
+        box-shadow: 0 0 0 0.25rem rgba($purple-accent, 0.35);
+        background-color: rgba($dark-gray, 0.85);
+        color: $light-cream;
+      }
+
+      &::placeholder {
+        color: $light-gray;
+        opacity: 0.8;
+      }
+    }
+
+    .form-label {
+      color: $light-cream;
+      font-family: $body-font;
+      font-weight: bold;
+      margin-bottom: $spacer * 0.5;
+    }
+  }
+
+  // --- Ajustement des boutons ---
+  // Ces styles ont été DÉPLACÉS et UNIFIÉS dans app/assets/stylesheets/components/_buttons.scss.
+  // Ils sont supprimés d'ici pour éviter les doublons et assurer une gestion centralisée.
+  /*
+  .btn {
+    font-family: $body-font;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-secondary {
+    font-size: $font-size-base;
+    padding: $spacer * 0.75 $spacer * 1.5;
+    color: $light-cream;
+    border-color: $medium-gray;
+    background-color: $medium-gray;
+    &:hover {
+      background-color: darken($medium-gray, 10%);
+      border-color: darken($medium-gray, 10%);
+      color: $light-cream;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba($black, 0.2);
+    }
+  }
+  */
+}

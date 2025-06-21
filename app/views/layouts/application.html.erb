@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Exercice Lewagon Rails Watch List" %></title>
+    <title><%= content_for(:title) || "Watch-List" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -18,11 +18,59 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <link href="https://fonts.cdnfonts.com/css/manga-style" rel="stylesheet">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <!-- app/views/layouts/application.html.erb -->
+    <%= javascript_include_tag "https://widget.cloudinary.com/v2.0/global/all.js" %>
+
+    <%# Import Google Fonts via HTML pour s'assurer que les polices sont chargées tôt %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   </head>
 
   <body>
-    <%= yield %>
+    <%# Navbar %>
+    <div class="navbar navbar-expand-sm navbar-light navbar-lewagon sticky-top">
+      <div class="container-fluid">
+        <%= link_to "Watch-List", lists_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item active">
+              <%= link_to "My Watchlists", lists_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Create A New List", new_list_path, class: "nav-link" %>
+            </li>
+            <%# Ajoutez d'autres liens de navigation ici si besoin %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <%# Flash Messages MODIFIÉ ICI %>
+    <%= render "shared/flash_message" %>
+
+    <%# Main Content avec image de fond %>
+    <div class="main-content">
+      <%= yield %>
+    </div>
+
+    <%# Footer %>
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; <%= Date.current.year %> Watch-List. Built by ❈Thomas ❈</p>
+        <div class="footer-links">
+          <a href="https://github.com/ThomasWEBDEV" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>

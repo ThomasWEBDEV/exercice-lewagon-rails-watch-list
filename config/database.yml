@@ -1,12 +1,7 @@
-# PostgreSQL. Versions 9.3 and up are supported.
-#
-# gem "pg"
-#
+# config/database.yml
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 ############################################
@@ -16,26 +11,30 @@ development:
   <<: *default
   database: exercice_lewagon_rails_watch_list_development
   host: localhost
-  # username: postgres
-  # password:
+  username: thomas # <<< TRÈS IMPORTANT : ASSURE-TOI QUE C'EST BIEN 'thomas'
+  # password:       # <<< LAISSE CETTE LIGNE COMMENTÉE
 
 test:
   <<: *default
   database: exercice_lewagon_rails_watch_list_test
   host: localhost
-  # username: postgres
-  # password:
+  username: thomas # <<< TRÈS IMPORTANT : ASSURE-TOI QUE C'EST BIEN 'thomas'
+  # password:       # <<< LAISSE CETTE LIGNE COMMENTÉE
 
 ############################################
 # PRODUCTION  (Heroku)
 ############################################
 production:
-  # Base principale de l’application
   primary:
     <<: *default
     url: <%= ENV['DATABASE_URL'] %>
-
-  # Base utilisée par Rails 8 pour solid_cache
   cache:
     <<: *default
     url: <%= ENV['DATABASE_URL'] %>
+
+# config/storage.yml
+cloudinary:
+  service: Cloudinary
+  cloud_name: <%= ENV['CLOUDINARY_CLOUD_NAME'] %>
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
